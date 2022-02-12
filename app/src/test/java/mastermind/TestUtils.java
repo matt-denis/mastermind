@@ -20,7 +20,6 @@ public class TestUtils {
     
     Color[] getColors(int nrColumns) {
         checkConsistency(nrColumns);
-        var manager = getColorManager(nrColors);
         var colors = new Color[nrColumns];
         Color walk = manager.firstColor();
         for (int i = 0; i < nrColumns; i++, walk = manager.nextColor(walk)) {
@@ -47,9 +46,21 @@ public class TestUtils {
         return new Row(guess);
     }
 
+    Row getRow(int nrColumns, int fullMatches, int partialMatches) {
+        Row row = getRow(nrColumns);
+        row.setMatches(fullMatches, partialMatches);
+        return row;
+    }
+
     Row getDifferentRowThan(Row row) {
         Guess guess = getDifferentGuessThan(row.guess);
         return new Row(guess);
+    }
+
+    Row getDifferentRowThan(Row row, int fullMatches, int partialMatches) {
+        Row other = getDifferentRowThan(row);
+        other.setMatches(fullMatches, partialMatches);
+        return other;
     }
 
     Table getTable(int nrColumns) {
@@ -57,8 +68,20 @@ public class TestUtils {
         return new Table(nrColumns);
     } 
 
-    private ColorManager getColorManager(int nrColors) {
+    GeneralGuesser getGeneralGuesser(int nrColumns) {
+        return new GeneralGuesser(getTable(nrColumns), manager);
+    }
+
+    UniqueGuesser getUniqueGuesser(int nrColumns) {
+        return new UniqueGuesser(getTable(nrColumns), manager);
+    }
+
+    ColorManager getNewColorManager(int nrColors) {
         return new ColorManager(nrColors, factory);
+    }
+
+    ColorManager getCurrentManager() {
+        return manager;
     }
 
     private void checkConsistency(int nrColumns) {

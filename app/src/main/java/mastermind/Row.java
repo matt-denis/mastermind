@@ -13,7 +13,7 @@ public class Row {
          nrColumns = guess.nrColumns(); 
     }
 
-    public Row(Guess guess, int fullMatches, int partiaMatches) {
+    public Row(Guess guess, int fullMatches, int partialMatches) {
         this(guess);
         setMatches(fullMatches, partialMatches);
     }

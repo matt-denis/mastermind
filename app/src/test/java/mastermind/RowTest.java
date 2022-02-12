@@ -36,6 +36,14 @@ public class RowTest {
         Assert.assertEquals(4, row.nrColumns());
     }
 
+    @Test
+    public void returnsCorrectNumberOfMatchesSetInConstructor() {
+        Guess guess = getGuess(4);
+        Row row = new Row(guess, 2, 2);
+        Assert.assertEquals(2, row.fullMatches());
+        Assert.assertEquals(2, row.partialMatches());
+    }
+
     @Test 
     public void canSetMatches() {
         Row row = new Row(getGuess(4));

@@ -1,6 +1,6 @@
 package mastermind;
 
-public abstract class GuesserBase {
+public abstract class GuesserBase implements Guesser {
 
     protected final Table table;
     protected final ColorManager manager;
