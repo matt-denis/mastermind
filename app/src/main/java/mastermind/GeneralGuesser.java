@@ -8,7 +8,7 @@ public class GeneralGuesser extends GuesserBase {
 
     @Override 
     protected Guess firstGuess() {
-        final var colors = new Color[table.nrColumns()];
+        var colors = new Color[table.nrColumns()];
         for (int i = 0; i < table.nrColumns(); i++) {
             colors[i] = manager.firstColor();
         }

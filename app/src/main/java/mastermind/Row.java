@@ -2,7 +2,7 @@ package mastermind;
 
 public class Row {
     
-    public static Guess none = Guess.none;
+    public static final Row none = new Row(Guess.none, 0, 0);
     protected final Guess guess;
     protected final int nrColumns;
     final private int partialMatches;
@@ -40,6 +40,11 @@ public class Row {
 
     public int nrPartialMatches(Guess other) {
         return guess.nrPartialMatches(other);
+    }
+
+    @Override 
+    public String toString() {
+        return guess.toString();
     }
 
     

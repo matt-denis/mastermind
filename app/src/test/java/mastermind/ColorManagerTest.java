@@ -12,7 +12,7 @@ public class ColorManagerTest {
         var first = manager.firstColor();
         var next = manager.nextColor(first);
         Assert.assertTrue(manager.thereIsNextColor(first));
-        Assert.assertNotSame(next, ColorManager.none);
+        Assert.assertNotSame(next, Color.none);
     }
 
     @Test
@@ -21,7 +21,7 @@ public class ColorManagerTest {
         
         Color walk = manager.firstColor();
         Assert.assertNotNull(walk);
-        while (walk != ColorManager.none) {
+        while (walk != Color.none) {
             Color next = manager.nextColor(walk);
             Assert.assertNotEquals(walk, next);
             walk = next;

@@ -9,7 +9,7 @@ import java.util.Iterator;
  */
 public class Table implements Iterable<Row> {
 
-    private final List<Row> rows;
+    final List<Row> rows;
     private final int nrColumns;
     final ColorManager manager;
 

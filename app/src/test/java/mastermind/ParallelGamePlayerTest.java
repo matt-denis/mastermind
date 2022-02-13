@@ -5,9 +5,9 @@ import java.util.concurrent.*;
 
 public class ParallelGamePlayerTest {
 
-    private static final int NR_COLORS = 4;
+    private static final int NR_COLORS = 10;
     final ColorManager manager = new ColorManager(NR_COLORS, new LetteredColorFactory());
-    private static final int NR_COLUMNS = 2;
+    private static final int NR_COLUMNS = 6;
     private final int nrThreads;
     private final BlockingQueue<Guess> guessQueue;
 
@@ -46,7 +46,7 @@ public class ParallelGamePlayerTest {
         try {
             while (!game.isFinished()) {
                 final Guess guess = guessQueue.take();
-                if (finalCheckGuesser.guessMatchesTable(guess)) {
+                if (finalCheckGuesser.guessMatch(guess)) {
                     if (guess == Guess.none) {
                         Assert.fail();
                     }
@@ -84,7 +84,7 @@ public class ParallelGamePlayerTest {
             color = manager.nextColor(color);
             count++;
         }
-        for (int i = 0; i < NR_COLUMNS; i++) {
+        for (int i = NR_COLUMNS - 1; i >= 0; i--) {
             colors[i] = color;
             color = manager.nextColor(color);
         }
@@ -116,14 +116,13 @@ public class ParallelGamePlayerTest {
     }
 
     private Guess nextIntervalStart(Color[] colors) {
-        final int index = colors.length - 1;
         int step = NR_COLORS / nrThreads;
         if (step == 0) {
             step = 1;
         }
         while (step > 0) {
-            if (manager.thereIsNextColor(colors[index])) {
-                colors[index] = manager.nextColor(colors[index]);
+            if (manager.thereIsNextColor(colors[0])) {
+                colors[0] = manager.nextColor(colors[0]);
                 step--;
             } else {
                 return Guess.none;

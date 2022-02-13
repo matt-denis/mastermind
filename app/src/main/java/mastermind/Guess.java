@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public class Guess implements Iterable<Color> {
 
-    final static Guess none = new Guess(new Color[] { Color.none });
+    final static Guess none = new Guess(new Color[0]);
     private final Color[] colors;
     private final int nrColumns;
     private boolean uniquenessNotCalculated = true;
@@ -24,13 +24,14 @@ public class Guess implements Iterable<Color> {
         if (uniquenessNotCalculated) {
             unique = true;
             final Set<Color> set = new HashSet<>();
-            for (final Color color : this) {
+            for (final Color color : colors) {
                 if (set.contains(color)) {
                     unique = false;
                     break;
                 }
                 set.add(color);
             }
+            uniquenessNotCalculated = false;
         }
         return unique;
     }
@@ -104,7 +105,7 @@ public class Guess implements Iterable<Color> {
         String out = "";
         if (this == Guess.none) out = "none";
         else {
-            for (final var color : this) {
+            for (final var color : this.colors) {
                 out += color;
             }
         }
@@ -115,8 +116,4 @@ public class Guess implements Iterable<Color> {
         if (nrColumns() != guess.nrColumns())
             throw new IllegalArgumentException("Cannot create subsequent guess from guess of different length");
     }
-
-    
-
-
 }

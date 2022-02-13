@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class ColorManager {
-    static final Color none = Color.none;
     private final int nrColors;
     private final ColorFactory factory;
     private final Map<Color, Color> successor = new HashMap<>();
@@ -21,7 +20,7 @@ public class ColorManager {
     Color firstColor() { return first; }
 
     Color nextColor(Color color) {
-        return successor.getOrDefault(color, none);
+        return successor.get(color);
     }
 
     boolean thereIsNextColor(Color color) {
@@ -36,7 +35,7 @@ public class ColorManager {
         return colors;
     }
 
-    private  void createOrdering(int nrColors) {
+    private void createOrdering(int nrColors) {
         Color[] colors = createColors(nrColors);
         first = colors[0];
         for (int i = 0; i < nrColors - 1; i++) {
