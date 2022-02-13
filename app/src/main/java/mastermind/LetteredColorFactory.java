@@ -2,7 +2,7 @@ package mastermind;
 
 public class LetteredColorFactory implements ColorFactory {
 
-    private final String letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    private static final String letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     private int index;
 
     @Override

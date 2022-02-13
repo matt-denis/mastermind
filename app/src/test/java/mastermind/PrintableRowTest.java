@@ -27,7 +27,7 @@ public class PrintableRowTest {
     @Test
     public void canGetColorsAndIterate() {
         Guess guess = getGuess(4);
-        PrintableRow row = new PrintableRow(guess);
+        PrintableRow row = new PrintableRow(new Row(guess, 1, 1));
         for (Color color : row) {
             Assert.assertTrue(color instanceof Color);
         }
@@ -37,21 +37,21 @@ public class PrintableRowTest {
     @Test
     public void canPrintRow() {
         Guess guess = getGuess(4);
-        PrintableRow row = new PrintableRow(guess);
+        PrintableRow row = new PrintableRow(new Row(guess, 1, 1));
         String representation = row.toString();
         Assert.assertTrue(representation.length() == 4);
-        Assert.assertTrue(representation.charAt(0) == 'A');
-        Assert.assertTrue(representation.charAt(1) == 'B');
-        Assert.assertTrue(representation.charAt(2) == 'C');
-        Assert.assertTrue(representation.charAt(3) == 'D');
+        Assert.assertTrue(representation.charAt(0) == '0');
+        Assert.assertTrue(representation.charAt(1) == '1');
+        Assert.assertTrue(representation.charAt(2) == '2');
+        Assert.assertTrue(representation.charAt(3) == '3');
 
         // test correct working of cached representation
         representation = row.toString();
         Assert.assertTrue(representation.length() == 4);
-        Assert.assertTrue(representation.charAt(0) == 'A');
-        Assert.assertTrue(representation.charAt(1) == 'B');
-        Assert.assertTrue(representation.charAt(2) == 'C');
-        Assert.assertTrue(representation.charAt(3) == 'D');
+        Assert.assertTrue(representation.charAt(0) == '0');
+        Assert.assertTrue(representation.charAt(1) == '1');
+        Assert.assertTrue(representation.charAt(2) == '2');
+        Assert.assertTrue(representation.charAt(3) == '3');
     }
 
 

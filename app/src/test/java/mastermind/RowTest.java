@@ -2,9 +2,11 @@ package mastermind;
 
 import org.junit.Assert;
 import org.junit.Test;
+import static mastermind.UnitTestUtils.*;
 
 public class RowTest {
     private final int nrColors = 6;
+    private final int nrColumns = 4;
     private ColorFactory factory = new SimpleColorFactory();
     private ColorManager manager = new ColorManager(nrColors, factory);
     
@@ -22,7 +24,7 @@ public class RowTest {
         return new Guess(colors);
     }
 
-    private Guess getDifferentGuessThan(Guess guess) {
+    private Guess differentGuessThan(Guess guess) {
         Color[] colors = new Color[guess.nrColumns()];
         for (int i = 0; i < guess.nrColumns(); i ++) {
             colors[i] = manager.nextColor(guess.getColor(i));
@@ -32,7 +34,7 @@ public class RowTest {
     
     @Test
     public void returnsCorrectNumberOfColumns() {
-        Row row = new Row(getGuess(4));
+        Row row = getNewRow(nrColors, nrColumns, 1, 1);
         Assert.assertEquals(4, row.nrColumns());
     }
 
@@ -46,30 +48,23 @@ public class RowTest {
 
     @Test 
     public void canSetMatches() {
-        Row row = new Row(getGuess(4));
-        row.setMatches(2, 2);
+        Row row = getNewRow(nrColors, nrColumns, 2, 2);
         Assert.assertEquals(2, row.fullMatches());
         Assert.assertEquals(2, row.partialMatches());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void throwsExceptionForNonsensicalMatches() {
-        var row = new Row(getGuess(4));
-        row.setMatches(4, 2);
     }
 
     @Test
     public void fullMatchesReturnCorrectNumber() {
         Guess guess = getGuess(4);
-        Row row = new Row(guess);
+        Row row = getNewRow(nrColors, nrColumns, 4, 0);
         Assert.assertEquals(4, row.nrFullMatches(guess));
     }
 
     @Test
     public void partialMatchesReturnCorrectNumber() {
         Guess guess1 = getGuess(4);
-        Guess guess2 = getDifferentGuessThan(guess1);
-        Row row1 = new Row(guess1);
+        Guess guess2 = differentGuessThan(guess1);
+        Row row1 = new Row(guess1, 1, 1);
         assert row1.nrFullMatches(guess2) == 0;
         Assert.assertEquals(3, row1.nrPartialMatches(guess2));
     }
@@ -77,8 +72,7 @@ public class RowTest {
     @Test
     public void guessMatchesItself() {
         Guess guess = getGuess(4);
-        Row row = new Row(guess);
-        row.setMatches(4, 0);
+        Row row = new Row(guess, 4, 0);
         Assert.assertTrue(row.guessMatches(guess));
     }
 }

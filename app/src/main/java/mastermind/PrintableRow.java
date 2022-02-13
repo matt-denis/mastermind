@@ -7,17 +7,12 @@ public class PrintableRow extends Row implements Iterable<Color> {
     private String cachedRepresentation;
     private boolean cachedRepresentationNotSet = true;
     
-    public PrintableRow(Guess guess) {
-        super(guess);
-    }
-
-    public PrintableRow(Guess guess, int fullMatches, int partialMatches) {
-        super(guess, fullMatches, partialMatches);
+    public PrintableRow(Row row) {
+        super(row);
     }
 
     public Color getColor(int i) {
-        return guess.
-        getColor(i);
+        return guess.getColor(i);
     }
 
     @Override
@@ -25,8 +20,8 @@ public class PrintableRow extends Row implements Iterable<Color> {
         if (cachedRepresentationNotSet) {
             cachedRepresentationNotSet = false;
             if (getColor(0) instanceof LetteredColor) {
-                StringBuilder buffer = new StringBuilder();
-                for (var color : this) {
+                final StringBuilder buffer = new StringBuilder();
+                for (final var color : this) {
                 buffer.append(color.toString());
                 }
                 cachedRepresentation = buffer.toString();

@@ -7,9 +7,9 @@ public abstract class GuesserBase implements Guesser {
     protected Guess nextGuess;
 
 
-    public GuesserBase(Table table, ColorManager manager) {
+    public GuesserBase(Table table) {
         this.table = table;
-        this.manager = manager;
+        manager = table.manager;
         nextGuess = firstGuess();
     }
 

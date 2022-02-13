@@ -11,9 +11,11 @@ public class Table implements Iterable<Row> { // TODO: does the table need a col
 
     private final List<Row> rows = new LinkedList<>();
     private final int nrColumns;
+    final ColorManager manager;
 
-    public Table(int nrColumns) {
+    public Table(int nrColumns, ColorManager manager) {
         this.nrColumns = nrColumns;
+        this.manager = manager;
     }
 
     public int size() { return rows.size(); }

@@ -2,16 +2,16 @@ package mastermind;
 
 import org.junit.Test;
 import org.junit.Assert;
+import static mastermind.UnitTestUtils.*;
 
 public class GameTest {
     
     private final int nrColors = 8;
     private final int nrColumns = 4;
-    private final TestUtils utils = new TestUtils(nrColors);
 
     private Guess getSecret() {
         assert nrColors >= nrColumns * 2;
-        ColorManager manager = utils.getCurrentManager();
+        ColorManager manager = getNewManager(nrColors);
         Color[] colors = new Color[nrColumns];
         Color color = manager.firstColor();
         for (int i = 0; i < nrColumns; i++) {
@@ -23,13 +23,13 @@ public class GameTest {
 
     @Test
     public void canInitializeGame() {
-        new Game(utils.getTable(nrColumns), getSecret());
+        new Game(getNewTable(nrColors, nrColumns), getSecret());
     }
 
     @Test
     public void canAddGuess() {
-        Game game = new Game(utils.getTable(nrColumns), getSecret());
-        game.addNewGuess(utils.getGuess(nrColumns));
+        Game game = new Game(getNewTable(nrColors, nrColumns), getSecret());
+        game.addNewGuess(getNewGuess(nrColors, nrColumns));
         // standard utils guess does not match secret
         Assert.assertFalse(game.isFinished());
     }

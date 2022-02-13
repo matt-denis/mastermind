@@ -22,9 +22,9 @@ public class Game {
 
     public Row addNewGuess(Guess guess) {
         assertGameActive();
-        int fullMatches = secret.nrFullMatches(guess);
-        int partialMatches = secret.nrPartialMatches(guess);
-        var row = new Row(guess, fullMatches, partialMatches);
+        final int fullMatches = secret.nrFullMatches(guess);
+        final int partialMatches = secret.nrPartialMatches(guess);
+        final var row = new Row(guess, fullMatches, partialMatches);
         table.addRow(row);
         if (isWinningGuess(fullMatches)) finished = true;
         return row;

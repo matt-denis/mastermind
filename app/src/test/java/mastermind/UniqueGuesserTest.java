@@ -1,57 +1,55 @@
 package mastermind;
 
-import java.util.Set;
-import java.util.HashSet;
 import org.junit.Test;
 import org.junit.Assert;
+import static mastermind.UnitTestUtils.*;
 
 public class UniqueGuesserTest {
 
     private final int nrColumns = 4;
     private final int nrColors = 6;
-    private final TestUtils utils = new TestUtils(nrColors);
-
-    private Color[] getIncrementalColors() {
-        return utils.getColors(nrColumns);
-    }
-
-    private boolean isUnique(Guess guess) {
-        Set<Color> seen = new HashSet<>();
-        for (var color : guess) {
-            if (seen.contains(color)) return false;
-            seen.add(color);
-        }
-        return true;
-    }
 
     @Test
     public void firstGuessIsIncremental() {
-        UniqueGuesser guesser = utils.getUniqueGuesser(nrColumns);
-        Color[] firstColors = getIncrementalColors();
+        ColorManager manager = new ColorManager(nrColors, Color::new);
+        Table table = new Table(nrColumns, manager);
+        Guesser guesser = new UniqueGuesser(table);
         Guess firstGuess = guesser.guess();
-        assert nrColumns == guesser.table.nrColumns();
-        for (int i = 0; i < nrColumns; i++) {
-            Assert.assertSame(firstColors[i], firstGuess.getColor(i));
+        assert nrColumns == table.nrColumns();
+        Color first = manager.firstColor();
+        Assert.assertSame(first, firstGuess.getColor(0));
+        Color walk = first;
+        for (int i = 1; i < nrColumns; i++) {
+            walk = manager.nextColor(walk);
+            Assert.assertSame(walk, firstGuess.getColor(i));
         }
     }
 
     @Test
     public void secondGuessIsUnique() {
-        UniqueGuesser guesser = utils.getUniqueGuesser(nrColumns);
+        UniqueGuesser guesser = getNewUniqueGuesser(nrColors, nrColumns);
         guesser.guess();
-        Guess secondGuess =  guesser.guess();
-        Assert.assertTrue(isUnique(secondGuess));
+        Guess secondGuess = guesser.guess();
+        Assert.assertTrue(secondGuess.isUnique());
     }
 
     @Test
     public void canReachLastGuessAndAllGuessesUnique() {
-        UniqueGuesser guesser = utils.getUniqueGuesser(nrColumns);
+        UniqueGuesser guesser = getNewUniqueGuesser(nrColors, nrColumns);
         Guess lastGuess;
         do {
             lastGuess = guesser.guess();
-            Assert.assertTrue(isUnique(lastGuess));
+            Assert.assertTrue(lastGuess.isUnique());
         } while (lastGuess != Guess.none);
         Assert.assertSame(Guess.none, lastGuess);
+    }
+
+    @Test
+    public void generateAllGuesses() {
+        var guesser = getNewUniqueGuesser(nrColors, nrColumns);
+        int count = 0;
+        while (guesser.nextGuess() != Guess.none) count++;
+        Assert.assertEquals(6 * 5 * 4 * 3, count);
     }
     
 }

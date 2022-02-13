@@ -23,8 +23,8 @@ public class Guess implements Iterable<Color> {
     public boolean isUnique() {
         if (uniquenessNotCalculated) {
             unique = true;
-            Set<Color> set = new HashSet<>();
-            for (Color color : this) {
+            final Set<Color> set = new HashSet<>();
+            for (final Color color : this) {
                 if (set.contains(color)) {
                     unique = false;
                     break;
@@ -56,9 +56,9 @@ public class Guess implements Iterable<Color> {
     }
 
     public Guess nextGuess(ColorManager manager) {
-        var nextColors = Arrays.copyOf(colors, nrColumns);
+        final var nextColors = Arrays.copyOf(colors, nrColumns);
         boolean found = false;
-        for (int i = 0; i < nrColumns; i++) {
+        for (int i = nrColumns - 1; i >= 0; i--) {
             if (manager.thereIsNextColor(nextColors[i])) {
                 nextColors[i] = manager.nextColor(nextColors[i]);
                 found = true;

@@ -2,16 +2,17 @@ package mastermind;
 
 import org.junit.Assert;
 import org.junit.Test;
+import static mastermind.UnitTestUtils.*;
 
 public class GeneralGuesserTest {
 
     private final int nrColors = 8;
     private final int nrColumns = 4;
-    private TestUtils utils = new TestUtils(nrColors);
+
     
     @Test
     public void canAddFirstAndSecondGuess() {
-        GeneralGuesser guesser = utils.getGeneralGuesser(nrColumns);
+        GeneralGuesser guesser = getNewGeneralGuesser(nrColors, nrColumns);
         Guess first = guesser.guess();
         Guess second = guesser.guess();
         Assert.assertNotNull(first);
@@ -22,9 +23,8 @@ public class GeneralGuesserTest {
 
     @Test
     public void canReachMaxGuesses() {
-        Table table = utils.getTable(nrColumns);
-        ColorManager manager = utils.getCurrentManager();
-        Guesser guesser = new GeneralGuesser(table, manager);
+        Table table = getNewTable(nrColors, nrColumns);
+        Guesser guesser = new GeneralGuesser(table);
         Guess guess = guesser.guess();
         while (guess != Guess.none) {
             table.addRow(new Row(guess, nrColumns - 2, 2));

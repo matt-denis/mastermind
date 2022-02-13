@@ -1,12 +1,9 @@
 package mastermind;
 
-import java.util.Set;
-import java.util.HashSet;
-
 public class UniqueGuesser extends GuesserBase {
 
-    public UniqueGuesser(Table table, ColorManager manager) {
-        super(table, manager);
+    public UniqueGuesser(Table table) {
+        super(table);
     }
 
     @Override 
@@ -25,17 +22,10 @@ public class UniqueGuesser extends GuesserBase {
         Guess guess;
         do {
             guess = super.nextGuess();
-        } while (guess != Guess.none && !isUnique(guess));
+        } while (!guess.isUnique());
         return guess;
     }
 
-    private boolean isUnique(Guess guess) {
-        Set<Color> seen = new HashSet<>();
-        for (var color : guess) {
-            if (seen.contains(color)) return false;
-            seen.add(color);
-        }
-        return true;
-    }
+
     
 }

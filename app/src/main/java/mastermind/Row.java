@@ -5,17 +5,18 @@ public class Row {
     public static Guess none = Guess.none;
     protected final Guess guess;
     protected final int nrColumns;
-    private int partialMatches;
-    private int fullMatches;
-
-    public Row(Guess guess) {
-         this.guess = guess;
-         nrColumns = guess.nrColumns(); 
-    }
+    final private int partialMatches;
+    final private int fullMatches;
 
     public Row(Guess guess, int fullMatches, int partialMatches) {
-        this(guess);
-        setMatches(fullMatches, partialMatches);
+        this.guess = guess;
+        this.fullMatches = fullMatches;
+        this.partialMatches = partialMatches;
+        nrColumns = guess.nrColumns();
+    }
+
+    protected Row(Row row) {
+        this(row.guess, row.fullMatches, row.partialMatches);
     }
 
     public int nrColumns() { return nrColumns; }
@@ -23,14 +24,6 @@ public class Row {
     public int partialMatches() { return partialMatches; }
 
     public int fullMatches() { return fullMatches; }
-
-    public void setMatches(int nrFullMatches, int nrPartialMatches) {
-        if (nrFullMatches + nrPartialMatches > nrColumns)
-            throw new IllegalArgumentException("The sum of full and partial matches" +
-            " cannot be larger than the number of total colors in the row");
-        fullMatches = nrFullMatches;
-        partialMatches = nrPartialMatches;
-    }
 
     public boolean guessMatches(Row row) {
         return guessMatches(row.guess);
