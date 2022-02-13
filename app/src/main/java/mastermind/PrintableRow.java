@@ -22,7 +22,7 @@ public class PrintableRow extends Row implements Iterable<Color> {
             if (getColor(0) instanceof LetteredColor) {
                 final StringBuilder buffer = new StringBuilder();
                 for (final var color : this) {
-                buffer.append(color.toString());
+                buffer.append(color.toString() + " ");
                 }
                 cachedRepresentation = buffer.toString();
             }

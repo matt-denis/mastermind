@@ -86,6 +86,31 @@ public class Guess implements Iterable<Color> {
         };
     }
 
+    @Override 
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || !(o instanceof Guess)) return false;
+        var other = (Guess) o;
+        return Arrays.equals(colors, other.colors);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(colors);
+    }
+
+    @Override
+    public String toString() {
+        String out = "";
+        if (this == Guess.none) out = "none";
+        else {
+            for (final var color : this) {
+                out += color;
+            }
+        }
+        return out;
+    }
+
     private void assertCompatibility(Guess guess) {
         if (nrColumns() != guess.nrColumns())
             throw new IllegalArgumentException("Cannot create subsequent guess from guess of different length");

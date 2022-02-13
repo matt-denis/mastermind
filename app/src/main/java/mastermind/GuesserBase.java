@@ -30,7 +30,7 @@ public abstract class GuesserBase implements Guesser {
     }
 
 
-    private boolean guessMatchesTable(Guess guess) {
+    public boolean guessMatchesTable(Guess guess) {
         for (Row row : table) {
             if (!row.guessMatches(guess)) return false;
         }

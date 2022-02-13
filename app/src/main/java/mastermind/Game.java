@@ -6,11 +6,6 @@ public class Game {
     private final Guess secret;
     final int nrColumns;
     private boolean finished;
-    Status status;
-
-    private enum Status {
-        WON, LOST;
-    }
 
 
     public Game(Table table, Guess secret) {

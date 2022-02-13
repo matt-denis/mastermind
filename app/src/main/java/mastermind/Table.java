@@ -1,21 +1,22 @@
 package mastermind;
 
 import java.util.List;
-import java.util.LinkedList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.Iterator;
 
 /**
  * Represents the state of the game and holds guesses made
  */
-public class Table implements Iterable<Row> { // TODO: does the table need a color manager?
+public class Table implements Iterable<Row> {
 
-    private final List<Row> rows = new LinkedList<>();
+    private final List<Row> rows;
     private final int nrColumns;
     final ColorManager manager;
 
     public Table(int nrColumns, ColorManager manager) {
         this.nrColumns = nrColumns;
         this.manager = manager;
+        rows = new CopyOnWriteArrayList<>();
     }
 
     public int size() { return rows.size(); }
