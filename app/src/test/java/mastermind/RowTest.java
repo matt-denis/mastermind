@@ -56,7 +56,7 @@ public class RowTest {
     @Test
     public void fullMatchesReturnCorrectNumber() {
         Guess guess = getGuess(4);
-        Row row = getNewRow(nrColors, nrColumns, 4, 0);
+        Row row = new Row(guess, 0, 0);
         Assert.assertEquals(4, row.nrFullMatches(guess));
     }
 

@@ -3,6 +3,7 @@ package mastermind;
 public abstract class GuesserBase implements Guesser{
     protected final Table table;
     protected final ColorManager manager;
+    protected Guess nextGuess;
 
     public GuesserBase(Table table) {
         this.table = table;
@@ -12,7 +13,7 @@ public abstract class GuesserBase implements Guesser{
 
     abstract protected Guess firstGuess();
 
-    protected Guess nextGuess;
+    
 
     /**
      * get the next guess, without checking any matching
@@ -21,7 +22,7 @@ public abstract class GuesserBase implements Guesser{
      */
     protected Guess nextGuess() {
         var currentGuess = nextGuess;
-        nextGuess = currentGuess.nextGuess(manager);
+        nextGuess = nextGuess.nextGuess(manager);
         return currentGuess;
     }
 
@@ -40,10 +41,6 @@ public abstract class GuesserBase implements Guesser{
         return true;
     }
 
-    private boolean guessDoesNotMatch(Guess guess) {
-        return !guessMatch(guess);
-    }
-
     /**
      * Create a new Row object that contains a guess that matches all guesses and the
      * responses to them that are on the table.
@@ -51,10 +48,11 @@ public abstract class GuesserBase implements Guesser{
      * @return the new Row to be added to the table along with the feedback afterwards.
      */
     public Guess guess() {
-        var guess = nextGuess();
-        while (guess != Guess.none && guessDoesNotMatch(guess)) {
+        Guess guess;
+        do {
             guess = nextGuess();
         }
+        while (guess != Guess.none && !guessMatch(guess));
         return guess;
     }
 }

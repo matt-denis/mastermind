@@ -15,10 +15,10 @@ public class LetteredColorFactoryTest {
     @Test
     public void subsequentLetteredColorsHaveSubsequentLetters() {
         var factory = new LetteredColorFactory();        
-        for (int i = 'A'; i <= 'Z'; i++) {
+        for (int i = '0'; i <= '9'; i++) {
             Assert.assertEquals(String.valueOf((char) i), factory.create().toString());
         }
-        for (int i = 'a'; i <= 'z'; i++) {
+        for (int i = 'A'; i <= 'Z'; i++) {
             Assert.assertEquals(String.valueOf((char) i), factory.create().toString());
         }
     }

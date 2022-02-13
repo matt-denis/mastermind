@@ -18,12 +18,11 @@ public class ColorManagerTest {
     @Test
     public void subsequentColorsAllDifferent() {
         var manager = new ColorManager(NR_COLORS, FACTORY);
-        
         Color walk = manager.firstColor();
         Assert.assertNotNull(walk);
-        while (walk != Color.none) {
+        while (walk != null) {
             Color next = manager.nextColor(walk);
-            Assert.assertNotEquals(walk, next);
+            Assert.assertNotSame(walk, next);
             walk = next;
         }
     }

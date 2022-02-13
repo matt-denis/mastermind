@@ -81,8 +81,7 @@ public class GuessTest {
 
     @Test
     public void firstAndOnlyNoneGuessElementIsSameAsNoneColor() {
-        Assert.assertTrue(Guess.none.nrColumns() == 1);
-        Assert.assertSame(Color.none, Guess.none.getColor(0));
+        Assert.assertTrue(Guess.none.nrColumns() == 0);
     }
 
     @Test

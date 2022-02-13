@@ -136,6 +136,6 @@ public class ParallelGamePlayerTest {
     }
 
     public static void main(String[] args) {
-        new ParallelGamePlayerTest(4, 100).playParallel();
+        new ParallelGamePlayerTest(8, 100).playParallel();
     }
 }

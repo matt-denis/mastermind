@@ -39,19 +39,19 @@ public class PrintableRowTest {
         Guess guess = getGuess(4);
         PrintableRow row = new PrintableRow(new Row(guess, 1, 1));
         String representation = row.toString();
-        Assert.assertTrue(representation.length() == 4);
+        Assert.assertTrue(representation.length() == 4 * 2);
         Assert.assertTrue(representation.charAt(0) == '0');
-        Assert.assertTrue(representation.charAt(1) == '1');
-        Assert.assertTrue(representation.charAt(2) == '2');
-        Assert.assertTrue(representation.charAt(3) == '3');
+        Assert.assertTrue(representation.charAt(2) == '1');
+        Assert.assertTrue(representation.charAt(4) == '2');
+        Assert.assertTrue(representation.charAt(6) == '3');
 
         // test correct working of cached representation
         representation = row.toString();
-        Assert.assertTrue(representation.length() == 4);
+        Assert.assertTrue(representation.length() == 4 * 2);
         Assert.assertTrue(representation.charAt(0) == '0');
-        Assert.assertTrue(representation.charAt(1) == '1');
-        Assert.assertTrue(representation.charAt(2) == '2');
-        Assert.assertTrue(representation.charAt(3) == '3');
+        Assert.assertTrue(representation.charAt(2) == '1');
+        Assert.assertTrue(representation.charAt(4) == '2');
+        Assert.assertTrue(representation.charAt(6) == '3');
     }
 
 
